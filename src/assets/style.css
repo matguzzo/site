@@ -257,3 +257,8 @@ h1 { line-height: 1.08; }
   .home-row { margin-top: clamp(2rem, 3.5vw, 3.5rem); }
   .home-text .intro { font-size: clamp(1.15rem, 1.6vw, 1.7rem); }
 }
+
+/* Homepage, desktop: the top menu bar stays in view while scrolling, like the sidebar on other pages. */
+@media (min-width: 861px) {
+  .is-home .side { position: sticky; top: 0; z-index: 20; background: var(--bg); }
+}
