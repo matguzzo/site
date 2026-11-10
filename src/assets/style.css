@@ -3,6 +3,7 @@
    condensed for labels. */
 
 @font-face { font-family: "Archivo"; src: url("fonts/archivo-latin-wdth-normal.woff2") format("woff2"); font-weight: 100 900; font-stretch: 62% 125%; font-style: normal; font-display: swap; }
+@font-face { font-family: "Rubik"; src: url("fonts/rubik-latin-wght-normal.woff2") format("woff2"); font-weight: 300 900; font-style: normal; font-display: swap; }
 @font-face { font-family: "Archivo"; src: url("fonts/archivo-latin-wdth-italic.woff2") format("woff2"); font-weight: 100 900; font-stretch: 62% 125%; font-style: italic; font-display: swap; }
 
 :root {
@@ -12,6 +13,7 @@
   --rule: #2b2a27;
   --accent: #f1f0ec;       /* try #ff2a00 for the matguzzo.com red */
   --font: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --display: "Rubik", "Archivo", "Helvetica Neue", Arial, sans-serif; /* headlines, after matguzzo.com */
   --side: 15rem;
   --pad: clamp(1.25rem, 4vw, 4rem);
   color-scheme: dark;
@@ -237,4 +239,21 @@ blockquote { margin: 1.5rem 0; padding-left: 1rem; border-left: 1px solid var(--
   html { font-size: 87.5%; }
   .is-home h1.lead { font-size: clamp(2.3rem, 4.6vw, 5.6rem); }
   .home-text .intro { font-size: clamp(1.15rem, 1.5vw, 1.6rem); }
+}
+
+/* ---- matguzzo.com look (10 Nov 2026): rounded heavy headlines in Rubik,
+   light and airy text, centred homepage. Colours unchanged. ---- */
+h1, .big, .name, .mbar-name { font-family: var(--display); font-weight: 700; font-stretch: normal; letter-spacing: -.01em; }
+h1 { line-height: 1.08; }
+.intro { font-weight: 300; letter-spacing: .035em; line-height: 1.45; }
+
+.is-home main > .home { margin: 0 auto; text-align: center; }
+.is-home h1.lead { font-weight: 700; letter-spacing: -.012em; line-height: 1.1; max-width: 22ch; margin-left: auto; margin-right: auto; }
+.home-row { grid-template-columns: 1fr; justify-items: center; align-items: start; }
+.home-text .intro { margin-left: auto; margin-right: auto; max-width: 30rem; }
+.is-home .disco { justify-self: center; max-width: 30rem; }
+@media (min-width: 861px) {
+  .is-home h1.lead { font-size: clamp(2.3rem, 4.4vw, 5.2rem); }
+  .home-row { margin-top: clamp(2rem, 3.5vw, 3.5rem); }
+  .home-text .intro { font-size: clamp(1.15rem, 1.6vw, 1.7rem); }
 }

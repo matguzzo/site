@@ -197,6 +197,7 @@ ${alternates}
 <link rel="icon" type="image/png" href="${base}assets/favicon.png">
 <link rel="apple-touch-icon" href="${base}assets/apple-touch-icon.png">
 <link rel="preload" href="${base}assets/fonts/archivo-latin-wdth-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="${base}assets/fonts/rubik-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="${base}assets/style.css">
 <script src="${base}assets/hscroll.js" defer></script>
 ${isHome ? `<script src="${base}assets/disco.js" defer></script>` : ''}
