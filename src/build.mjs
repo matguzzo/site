@@ -86,8 +86,16 @@ const sections = (secs, lang, where) =>
   secs
     .map((s) => `${s.h ? `<h2${s.id ? ` id="${s.id}"` : ''}>${esc(tr(s.h, lang))}</h2>\n` : ''}<ul class="entries">\n${s.items.filter(Boolean).map((i) => entry(i, lang, where)).join('\n')}\n</ul>`)
     .join('\n');
+// Search description for a list page: its intro if it has one, otherwise its first few entry titles.
+const clip = (t, n = 158) => (t.length <= n ? t : `${t.slice(0, n - 1).replace(/\s+\S*$/, '')}…`);
+const describe = (p, lang) => {
+  const titles = p.sections.flatMap((x) => x.items.filter(Boolean).map((i) => strip(tr(i.t, lang)))).slice(0, 5).join(' · ');
+  const text = p.intro ? strip(tr(p.intro, lang)) : titles;
+  return clip(`${strip(tr(p.title, lang))} — ${site.name}. ${text}`);
+};
 const listPage = (p, lang, where) => ({
   title: tr(p.title, lang),
+  desc: describe(p, lang),
   body: `<h1>${esc(tr(p.title, lang))}</h1>\n${p.intro ? `<p class="intro">${tr(p.intro, lang)}</p>\n` : ''}${gallery(p.images, lang)}${sections(p.sections, lang, where)}`,
 });
 
@@ -152,6 +160,7 @@ for (const p of visualProjects) {
     const links = (p.links || []).map((l) => `<li><a href="${l.href}">${esc(tr(l.label, lang))}</a></li>`).join('');
     return {
       title: strip(tr(p.t, lang)),
+      desc: clip(`${strip(tr(p.t, lang))} (${tr(p.y, lang)}) — ${site.name}. ${strip(tr(p.lede, lang))}`),
       navSlug: 'visual-arts',
       body: `<p class="back"><a href="visual-arts.html">← ${esc(tr(ui.back, lang))}</a></p>
 <h1>${tr(p.t, lang)}</h1>
@@ -162,11 +171,34 @@ ${gallery(p.images, lang)}${p.d ? `<p>${tr(p.d, lang)}</p>\n` : ''}${p.quote ? `
   };
 }
 
+// ---------- structured data: tells search engines and AI assistants who this site is about ----------
+// Only facts already stated on the site. Add jobTitle / worksFor here once Guzzo wants them public.
+const personData = (lang) => ({
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebSite', '@id': `${site.url}/#website`, url: `${site.url}/`, name: site.name,
+      inLanguage: site.langs.map((l) => site.htmlLang[l]), publisher: { '@id': `${site.url}/#person` },
+    },
+    {
+      '@type': 'Person', '@id': `${site.url}/#person`, name: site.name, url: `${site.url}/`,
+      description: tr(ui.description, lang),
+      nationality: { '@type': 'Country', name: 'Brazil' },
+      alumniOf: [
+        { '@type': 'CollegeOrUniversity', name: 'University of California San Diego' },
+        { '@type': 'CollegeOrUniversity', name: 'Universidade Estadual de Campinas (UNICAMP)' },
+      ],
+      knowsLanguage: ['pt', 'en', 'de', 'es'],
+      sameAs: [...site.links.map((l) => l.href), ...(writing.substack ? [writing.substack] : [])],
+    },
+  ],
+});
+
 // ---------- layout ----------
-function layout({ lang, slug, title, body, isHome = false, absolute = false, navSlug }) {
+function layout({ lang, slug, title, body, desc: pageDesc, isHome = false, absolute = false, navSlug }) {
   const base = absolute ? '/' : up(lang);
   const pageTitle = isHome ? site.name : `${strip(title)} — ${site.name}`;
-  const desc = tr(ui.description, lang);
+  const desc = pageDesc || tr(ui.description, lang);
   const href = (s) => (absolute ? `/${dirOf(lang)}${s === 'index' ? '' : fileOf(s)}` : s === 'index' ? (PREVIEW ? 'index.html' : './') : fileOf(s));
   const navHtml = nav.map((n) => `<li><a href="${href(n.slug)}"${n.slug === (navSlug || slug) ? ' aria-current="page"' : ''}>${esc(tr(n.label, lang))}</a></li>`).join('');
   const langsHtml = site.langs
@@ -194,7 +226,7 @@ ${alternates}
 <meta property="og:url" content="${urlOf(lang, slug)}">
 <meta property="og:image" content="${site.url}/assets/og.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="icon" type="image/png" href="${base}assets/favicon.png">
+${isHome ? `<script type="application/ld+json">${JSON.stringify(personData(lang))}</script>\n` : ''}<link rel="icon" type="image/png" href="${base}assets/favicon.png">
 <link rel="apple-touch-icon" href="${base}assets/apple-touch-icon.png">
 <link rel="preload" href="${base}assets/fonts/archivo-latin-wdth-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="${base}assets/fonts/rubik-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>

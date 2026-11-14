@@ -356,7 +356,7 @@ export const engagements = {
 // Set `substack` to the publication URL (no trailing slash) to switch it on;
 // the footer link appears at the same time.
 export const writing = {
-  title: T('Writing', 'Escrita', 'Texte', 'Escritos'),
+  title: T('Blog', 'Blog', 'Blog', 'Blog'),
   substack: '', // e.g. 'https://vibesmanagement.substack.com'
   substackName: 'Substack',
   soon: T('Still developing. Essays and notes will appear here.', 'Em desenvolvimento. Ensaios e notas vão aparecer aqui.', 'Noch im Aufbau. Essays und Notizen erscheinen bald hier.', 'Todavía en desarrollo. Aquí aparecerán ensayos y notas.'),

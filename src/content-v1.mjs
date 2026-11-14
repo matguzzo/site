@@ -22,10 +22,10 @@ export const site = {
 
 export const ui = {
   description: {
-    en: 'Mateus Guzzo — Brazilian designer and filmmaker building programs, communities and communications for public-interest technology.',
-    pt: 'Mateus Guzzo — designer e cineasta brasileiro que cria programas, comunidades e comunicação para tecnologia de interesse público.',
-    de: 'Mateus Guzzo – brasilianischer Designer und Filmemacher. Programme, Communities und Kommunikation für gemeinwohlorientierte Technologie.',
-    es: 'Mateus Guzzo — diseñador y cineasta brasileño que crea programas, comunidades y comunicación para tecnología de interés público.',
+    en: 'Mateus Guzzo is a Brazilian communicator, designer, and technologist working with community architecture, narrative infrastructure, and creative strategy across policy, tech, and academia.',
+    pt: 'Mateus Guzzo é um comunicador, designer e tecnólogo brasileiro que trabalha com arquitetura de comunidades, infraestrutura narrativa e estratégia criativa entre políticas públicas, tecnologia e academia.',
+    de: 'Mateus Guzzo ist ein brasilianischer Kommunikator, Designer und Technologe. Er arbeitet mit Community-Architektur, narrativer Infrastruktur und kreativer Strategie zwischen Politik, Technologie und Wissenschaft.',
+    es: 'Mateus Guzzo es un comunicador, diseñador y tecnólogo brasileño que trabaja con arquitectura de comunidades, infraestructura narrativa y estrategia creativa entre políticas públicas, tecnología y academia.',
   },
   skip: { en: 'Skip to content', pt: 'Pular para o conteúdo', de: 'Zum Inhalt', es: 'Saltar al contenido' },
   mainNav: { en: 'Main', pt: 'Principal', de: 'Hauptmenü', es: 'Principal' },
